@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import posed, { Transition } from 'react-native-pose';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import colors from '../../constants/colors';
 
@@ -20,6 +21,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: 60,
     elevation: 40,
+    width: 95,
   },
   tabBarItemText: {
     fontFamily: 'Raleway-SemiBold',
@@ -27,7 +29,24 @@ const styles = StyleSheet.create({
   },
 });
 
-class TabBar extends Component {
+const Container = posed.View({
+  enter: {
+    scaleY: 1,
+    scaleX: 1,
+    transition: {
+      duration: 50,
+    },
+  },
+  exit: {
+    scaleY: 0.3,
+    scaleX: 0.3,
+    transition: {
+      duration: 50,
+    },
+  },
+});
+
+class TabBar extends PureComponent {
   navigationStateIndex = null;
 
   constructor(props) {
@@ -64,13 +83,32 @@ class TabBar extends Component {
           borderTopRightRadius: isEndTab ? 5 : 0,
         }}
       >
-        {!focused ? renderIcon({ route, tintColor: color, focused: currentIndex === idx, index: idx }) : (
-          [
-            <Text key={0} style={{ ...styles.tabBarItemText, color }}>
-              {label}
-            </Text>,
-            <Icon key={1} name="circle" size={5} solid color={color} />]
-        )}
+        <Transition
+          enterPose="enter"
+          exitPose="exit"
+          preEnterPose="exit"
+          enterAfterExit
+          animateOnMount
+        >
+          {!focused ?
+            (
+              <Container
+                key="active"
+              >
+                {renderIcon({ route, tintColor: color, focused: currentIndex === idx, index: idx })}
+              </Container>
+            ) : (
+              <Container
+                key="inactive"
+                style={{ alignItems: 'center' }}
+              >
+                <Text key={0} style={{ ...styles.tabBarItemText, color }}>
+                  {label}
+                </Text>
+                <Icon key={1} name="circle" size={5} solid color={color} />
+              </Container>
+            )}
+        </Transition>
 
       </TouchableOpacity>
     );

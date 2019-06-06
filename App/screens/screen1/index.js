@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import posed from 'react-native-pose';
+import posed, { Transition } from 'react-native-pose';
 import colors from '../../constants/colors';
 
 const styles = StyleSheet.create({
@@ -33,13 +33,19 @@ const styles = StyleSheet.create({
 });
 
 const Container = posed.View({
-  active: {
-    opacity: 1,
-    transition: { duration: 1000 },
+  enter: {
+    scaleY: 1,
+    scaleX: 1,
+    transition: {
+      duration: 50,
+    },
   },
-  inactive: {
-    opacity: 0.1,
-    transition: { duration: 1000 },
+  exit: {
+    scaleY: 0.3,
+    scaleX: 0.3,
+    transition: {
+      duration: 50,
+    },
   },
 });
 
@@ -47,49 +53,53 @@ class Screen1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDiv1Active: true,
-      isDiv2Active: false,
+      active: true,
     };
   }
 
   render() {
-    const { isDiv1Active, isDiv2Active } = this.state;
-    const div1Pose = isDiv1Active ? 'active' : 'inactive';
-    const div2Pose = isDiv2Active ? 'active' : 'inactive';
+    const { active } = this.state;
+
     return (
       <View style={styles.container}>
         <View style={{ flexDirection: 'row' }}>
-          <Container
-            initialPose={div1Pose}
-            pose={div1Pose}
+          <Transition
+            enterPose="enter"
+            exitPose="exit"
+            preEnterPose="exit"
+            enterAfterExit
+            animateOnMount
           >
-            <TouchableOpacity onPress={() => {
-              this.setState({ isDiv1Active: true, isDiv2Active: false });
-              this.setState({ isDiv1Active: true, isDiv2Active: false });
-              this.setState({ isDiv1Active: true, isDiv2Active: false });
-              this.setState({ isDiv1Active: true, isDiv2Active: false });
-            }}
-            >
-              <Text style={styles.welcome}>Screen 1</Text>
-              <Icon style={styles.icon} name="circle" size={20} solid />
-            </TouchableOpacity>
-          </Container>
-          <Container
-            initialPose={div2Pose}
-            pose={div2Pose}
-            style={{
-              justifyContent: 'center',
-            }}
-          >
-            <TouchableOpacity onPress={() => {
-              this.setState({ isDiv1Active: false, isDiv2Active: true });
-            }}
-            >
-              <Icon style={styles.icon} name="circle" size={50} />
-            </TouchableOpacity>
-          </Container>
+            {active ?
+              (
+                <Container
+                  key="active"
+                >
+                  <TouchableOpacity onPress={() => {
+                    this.setState({ active: !active });
+                  }}
+                  >
+                    <Text style={styles.welcome}>Screen 1</Text>
+                  </TouchableOpacity>
+                </Container>
+              ) : (
+                <Container
+                  key="inactive"
+                  style={{
+                    justifyContent: 'center',
+                  }}
+                >
+                  <TouchableOpacity onPress={() => {
+                    this.setState({ active: !active });
+                  }}
+                  >
+                    <Icon style={styles.icon} name="circle" size={50} />
+                  </TouchableOpacity>
+                </Container>
+              )
+            }
+          </Transition>
         </View>
-
       </View>
     );
   }
