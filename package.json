@@ -1,0 +1,44 @@
+{
+  "name": "tabnavigator",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "lint": "eslint App/**/*.js"
+  },
+  "dependencies": {
+    "react": "16.8.3",
+    "react-native": "0.59.8",
+    "react-native-gesture-handler": "^1.2.2",
+    "react-native-pose": "^0.9.1",
+    "react-native-vector-icons": "^6.4.2",
+    "react-navigation": "^3.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/runtime": "^7.4.5",
+    "@types/react-navigation": "^3.0.5",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.8.0",
+    "babel-preset-airbnb": "^3.2.1",
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-watch": "^5.0.1",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.54.1",
+    "react-test-renderer": "16.8.3"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  }
+}
