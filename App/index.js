@@ -5,7 +5,7 @@ import TabBar from './components/TabBar';
 import Screen1 from './screens/screen1';
 import Screen2 from './screens/screen2';
 import Screen3 from './screens/screen3';
-// import Screen4 from './screens/screen4';
+import Screen4 from './screens/screen4';
 import colors from './constants/colors';
 
 const App = createBottomTabNavigator(
@@ -34,14 +34,14 @@ const App = createBottomTabNavigator(
         ),
       }),
     },
-    // Screen4: {
-    //   screen: Screen4,
-    //   navigationOptions: () => ({
-    //     tabBarIcon: ({ tintColor }) => (
-    //       <Icon name="book" size={18} color={tintColor} />
-    //     ),
-    //   }),
-    // },
+    Screen4: {
+      screen: Screen4,
+      navigationOptions: () => ({
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="book" size={18} color={tintColor} />
+        ),
+      }),
+    },
   },
   {
     tabBarComponent: TabBar,

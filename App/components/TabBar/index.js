@@ -34,14 +34,14 @@ const Container = posed.View({
     scaleY: 1,
     scaleX: 1,
     transition: {
-      duration: 50,
+      duration: 40,
     },
   },
   exit: {
     scaleY: 0.3,
     scaleX: 0.3,
     transition: {
-      duration: 50,
+      duration: 40,
     },
   },
 });
@@ -77,10 +77,10 @@ class TabBar extends PureComponent {
         }}
         style={{
           ...styles.tabBarItem,
-          borderBottomLeftRadius: isStartTab ? 5 : 0,
-          borderTopLeftRadius: isStartTab ? 5 : 0,
-          borderBottomRightRadius: isEndTab ? 5 : 0,
-          borderTopRightRadius: isEndTab ? 5 : 0,
+          borderBottomLeftRadius: isStartTab ? 7 : 0,
+          borderTopLeftRadius: isStartTab ? 7 : 0,
+          borderBottomRightRadius: isEndTab ? 7 : 0,
+          borderTopRightRadius: isEndTab ? 7 : 0,
         }}
       >
         <Transition
